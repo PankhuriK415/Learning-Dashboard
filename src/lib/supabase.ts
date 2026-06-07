@@ -5,10 +5,17 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
 
 // Only initialize Supabase client if credentials are provided
-export const supabase =
-  supabaseUrl && supabaseAnonKey
-    ? createClient(supabaseUrl, supabaseAnonKey)
-    : null;
+export const supabase = (() => {
+  if (!supabaseUrl || !supabaseAnonKey) return null;
+  try {
+    // Basic URL format validation to avoid runtime TypeError: Invalid URL in createClient
+    new URL(supabaseUrl);
+    return createClient(supabaseUrl, supabaseAnonKey);
+  } catch (err) {
+    console.error("Failed to initialize Supabase client due to invalid configuration:", err);
+    return null;
+  }
+})();
 
 // Seed data as defined in requirements
 export const SEED_COURSES: Course[] = [

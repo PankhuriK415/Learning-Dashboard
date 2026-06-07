@@ -1,0 +1,152 @@
+@import "tailwindcss";
+
+@theme {
+  --color-obsidian: #050505;
+  --color-cyan-accent: #00f0ff;
+  --color-green-accent: #00ff87;
+  --color-emerald-accent: #023c28;
+  --color-silver-accent: #cbd5e1;
+  --color-dark-gray: #0c0c0c;
+  
+  --font-sans: var(--font-geist-sans), Arial, sans-serif;
+  --font-mono: var(--font-geist-mono), monospace;
+}
+
+:root {
+  --background: #050505;
+  --foreground: #cbd5e1;
+  --cyan-glow: rgba(0, 240, 255, 0.15);
+  --green-glow: rgba(0, 255, 135, 0.15);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  overflow-x: hidden;
+  font-family: var(--font-sans);
+}
+
+/* Custom Scrollbars */
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #023c28;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #00f0ff;
+}
+
+/* Futuristic Scanline Effect */
+.scanlines {
+  position: relative;
+  overflow: hidden;
+}
+.scanlines::before {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+              linear-gradient(90deg, rgba(0, 240, 255, 0.02), rgba(0, 255, 135, 0.01), rgba(0, 240, 255, 0.02));
+  z-index: 20;
+  background-size: 100% 4px, 6px 100%;
+  pointer-events: none;
+}
+
+/* Neural borders and edge lighting */
+.neural-border {
+  background: rgba(8, 8, 8, 0.7);
+  border: 1px solid rgba(0, 240, 255, 0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.neural-border:hover {
+  border-color: rgba(0, 240, 255, 0.25);
+  box-shadow: 0 0 30px rgba(0, 240, 255, 0.08), inset 0 0 12px rgba(0, 240, 255, 0.03);
+}
+
+.neural-border-green {
+  background: rgba(8, 8, 8, 0.7);
+  border: 1px solid rgba(0, 255, 135, 0.08);
+  border-radius: 16px;
+  backdrop-filter: blur(16px);
+  transition: border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.neural-border-green:hover {
+  border-color: rgba(0, 255, 135, 0.25);
+  box-shadow: 0 0 30px rgba(0, 255, 135, 0.08), inset 0 0 12px rgba(0, 255, 135, 0.03);
+}
+
+/* Ambient glow animations */
+@keyframes floatGlow {
+  0%, 100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.3;
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+    opacity: 0.45;
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+    opacity: 0.25;
+  }
+}
+
+.ambient-glow-cyan {
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.12) 0%, rgba(0, 0, 0, 0) 70%);
+  animation: floatGlow 15s infinite ease-in-out;
+}
+
+.ambient-glow-green {
+  background: radial-gradient(circle, rgba(0, 255, 135, 0.09) 0%, rgba(0, 0, 0, 0) 70%);
+  animation: floatGlow 20s infinite ease-in-out alternate;
+}
+
+/* Grid overlay background */
+.neural-grid-bg {
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.015) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.015) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Glitch styling for reconnect screen */
+.glitch-text {
+  text-shadow: 
+    0.05em 0 0 rgba(0, 240, 255, 0.75),
+    -0.025em -0.05em 0 rgba(0, 255, 135, 0.75),
+    0.025em 0.05em 0 rgba(2, 60, 40, 0.5);
+  animation: glitch 1.5s infinite;
+}
+
+@keyframes glitch {
+  0% {
+    text-shadow: 0.05em 0 0 rgba(0, 240, 255, 0.75), -0.025em -0.05em 0 rgba(0, 255, 135, 0.75);
+  }
+  14% {
+    text-shadow: 0.05em 0 0 rgba(0, 240, 255, 0.75), -0.025em -0.05em 0 rgba(0, 255, 135, 0.75);
+  }
+  15% {
+    text-shadow: -0.05em -0.025em 0 rgba(0, 240, 255, 0.75), 0.025em 0.025em 0 rgba(0, 255, 135, 0.75);
+  }
+  49% {
+    text-shadow: -0.05em -0.025em 0 rgba(0, 240, 255, 0.75), 0.025em 0.025em 0 rgba(0, 255, 135, 0.75);
+  }
+  50% {
+    text-shadow: 0.025em 0.05em 0 rgba(0, 240, 255, 0.75), 0.05em 0 0 rgba(0, 255, 135, 0.75);
+  }
+  99% {
+    text-shadow: 0.025em 0.05em 0 rgba(0, 240, 255, 0.75), 0.05em 0 0 rgba(0, 255, 135, 0.75);
+  }
+  100% {
+    text-shadow: -0.025em 0 0 rgba(0, 240, 255, 0.75), -0.025em -0.025em 0 rgba(0, 255, 135, 0.75);
+  }
+}

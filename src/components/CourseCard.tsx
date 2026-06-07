@@ -10,9 +10,10 @@ interface CourseCardProps {
   index: number;
 }
 
-const getIconComponent = (name: string) => {
-  const Icon = (Icons as any)[name];
-  if (Icon) return Icon;
+const getIconComponent = (name: string): React.ComponentType<{ className?: string }> => {
+  const allIcons = Icons as unknown as Record<string, React.ComponentType<{ className?: string }>>;
+  const IconComponent = allIcons[name];
+  if (IconComponent) return IconComponent;
   return Icons.BookOpen;
 };
 
@@ -24,7 +25,6 @@ const WAVE_PATHS = [
 ];
 
 export default function CourseCard({ course, index }: CourseCardProps) {
-  const Icon = getIconComponent(course.icon_name);
   const wavePath = WAVE_PATHS[index % WAVE_PATHS.length];
   
   const isEven = index % 2 === 0;
@@ -76,7 +76,7 @@ export default function CourseCard({ course, index }: CourseCardProps) {
       <div className="relative z-10">
         <div className="flex items-center justify-between">
           <div className={`flex h-11 w-11 items-center justify-center rounded-xl bg-black/45 border border-white/5 transition-transform duration-300 group-hover:scale-110 ${accentColor}`}>
-            <Icon className="h-5.5 w-5.5" />
+            {React.createElement(getIconComponent(course.icon_name), { className: "h-5.5 w-5.5" })}
           </div>
           <span className="font-mono text-[9px] tracking-widest text-silver-accent/30">
             NODE #{course.id.slice(0, 5).toUpperCase()}
